@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :accounts
   root to: "static_pages#home"
+
+  devise_for :accounts, :controllers => { sessions: 'sessions', registrations: 'registrations' }
+  post 'authenticate', to: 'authentication#authenticate'
 end
