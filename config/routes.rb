@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   devise_for :accounts, :controllers => { sessions: 'sessions', registrations: 'registrations' }
   post 'authenticate', to: 'authentication#authenticate'
+
+  resources :products
 end
