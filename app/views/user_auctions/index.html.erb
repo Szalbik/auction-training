@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>User Auctions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Finished at</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Minimal price</th>
+      <th>Account</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_auctions.each do |user_auction| %>
+      <tr>
+        <td><%= user_auction.finished_at %></td>
+        <td><%= user_auction.name %></td>
+        <td><%= user_auction.description %></td>
+        <td><%= user_auction.minimal_price %></td>
+        <td><%= user_auction.account_id %></td>
+        <td><%= link_to 'Show', user_auction %></td>
+        <td><%= link_to 'Edit', edit_user_auction_path(user_auction) %></td>
+        <td><%= link_to 'Destroy', user_auction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User Auction', new_user_auction_path %>
