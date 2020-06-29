@@ -25,5 +25,6 @@
   <%= @user_auction.account_id %>
 </p>
 
+<%= link_to 'New Bid', new_user_auction_bid_path(@user_auction) %> |
 <%= link_to 'Edit', edit_user_auction_path(@user_auction) %> |
 <%= link_to 'Back', user_auctions_path %>

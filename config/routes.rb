@@ -7,5 +7,7 @@ Rails.application.routes.draw do
   post 'authenticate', to: 'authentication#authenticate'
   
   resources :products
-  resources :user_auctions
+  resources :user_auctions do
+    resources :bids
+  end
 end
