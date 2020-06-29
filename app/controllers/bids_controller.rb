@@ -39,9 +39,6 @@ class BidsController < ApplicationController
       end
     end
   rescue  ActiveRecord::StatementInvalid => e
-    
-    binding.pry
-    
     if e.message =~ /is lower than maximum amount/
       @bid.errors.add(:amount, e.message)
       render :new, user_auction_id: @auction.id
