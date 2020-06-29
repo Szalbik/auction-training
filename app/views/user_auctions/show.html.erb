@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Finished at:</strong>
+  <%= @user_auction.finished_at %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @user_auction.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @user_auction.description %>
+</p>
+
+<p>
+  <strong>Minimal price:</strong>
+  <%= @user_auction.minimal_price %>
+</p>
+
+<p>
+  <strong>Account:</strong>
+  <%= @user_auction.account_id %>
+</p>
+
+<%= link_to 'New Bid', new_user_auction_bid_path(@user_auction) %> |
+<%= link_to 'Edit', edit_user_auction_path(@user_auction) %> |
+<%= link_to 'Back', user_auctions_path %>

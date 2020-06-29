@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   
   before_action :authenticate_request, if: :json_request
   before_action :authenticate_account!, unless: :json_request
-  
-  attr_reader :current_account
-  
+
   private
   
   def json_request
