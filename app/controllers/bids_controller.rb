@@ -5,12 +5,12 @@ class BidsController < ApplicationController
   # GET /bids
   # GET /bids.json
   def index
-    @bids = Bid.all
+    @bids = @auction.bids
   end
 
   # GET /bids/1
   # GET /bids/1.json
-  def show
+  def show    
   end
 
   # GET /bids/new
@@ -28,15 +28,25 @@ class BidsController < ApplicationController
     @bid = Bid.new(bid_params)
     @bid.account = current_account
     @bid.user_auction = @auction
-    
+
     respond_to do |format|
       if @bid.save
         format.html { redirect_to user_auction_path(@auction), notice: 'Bid was successfully created.' }
         format.json { render :show, status: :created, location: @bid }
       else
-        format.html { render :new }
+        format.html { render :new, user_auction_id: @auction.id }
         format.json { render json: @bid.errors, status: :unprocessable_entity }
       end
+    end
+  rescue  ActiveRecord::StatementInvalid => e
+    
+    binding.pry
+    
+    if e.message =~ /is lower than maximum amount/
+      @bid.errors.add(:amount, e.message)
+      render :new, user_auction_id: @auction.id
+    else
+      raise e
     end
   end
 
