@@ -3,5 +3,5 @@
 class UserAuction < ApplicationRecord
   belongs_to :account
   belongs_to :product
-  has_many :bids, class_name: 'Bid', foreign_key: 'account_id'
+  has_many :bids
 end
