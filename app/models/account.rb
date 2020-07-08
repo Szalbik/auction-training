@@ -4,6 +4,6 @@ class Account < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :products
-  has_many :user_auctions
+  has_one :buyer
+  has_one :seller
 end

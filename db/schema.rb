@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_122825) do
+ActiveRecord::Schema.define(version: 2020_07_08_131321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,14 +82,11 @@ ActiveRecord::Schema.define(version: 2020_07_08_122825) do
     t.string "name"
     t.string "description"
     t.decimal "minimal_price"
-    t.bigint "account_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "product_id", null: false
-    t.bigint "seller_id", null: false
-    t.index ["account_id"], name: "index_user_auctions_on_account_id"
-    t.index ["product_id"], name: "index_user_auctions_on_product_id"
-    t.index ["seller_id"], name: "index_user_auctions_on_seller_id"
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.index ["owner_type", "owner_id"], name: "index_user_auctions_on_owner_type_and_owner_id"
   end
 
   add_foreign_key "bids", "accounts"
@@ -100,7 +97,4 @@ ActiveRecord::Schema.define(version: 2020_07_08_122825) do
   add_foreign_key "products", "groups"
   add_foreign_key "products", "sellers"
   add_foreign_key "sellers", "accounts"
-  add_foreign_key "user_auctions", "accounts"
-  add_foreign_key "user_auctions", "products"
-  add_foreign_key "user_auctions", "sellers"
 end
