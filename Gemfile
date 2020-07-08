@@ -22,6 +22,8 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
   gem 'pry-byebug'
+  gem 'rspec-rails'
+  gem 'shoulda-matchers', '~> 4.0'
 end
 
 group :development do

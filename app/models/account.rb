@@ -6,5 +6,4 @@ class Account < ApplicationRecord
 
   has_many :products
   has_many :user_auctions
-  has_many :bids
 end
