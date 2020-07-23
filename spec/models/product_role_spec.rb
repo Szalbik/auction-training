@@ -6,7 +6,7 @@ RSpec.describe ProductRole, type: :model do
   end
 
   describe 'associations' do
-    it { is_expected.to have_many(:products) }
+    it { is_expected.to belong_to(:product) }
     it { is_expected.to belong_to(:product_role_assignment) }
   end
 end
