@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_062845) do
+ActiveRecord::Schema.define(version: 2020_07_23_071048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,16 +44,55 @@ ActiveRecord::Schema.define(version: 2020_07_09_062845) do
     t.index ["account_id"], name: "index_buyers_on_account_id"
   end
 
+  create_table "group_users", force: :cascade do |t|
+    t.bigint "seller_id", null: false
+    t.bigint "group_id", null: false
+    t.index ["group_id"], name: "index_group_users_on_group_id"
+    t.index ["seller_id"], name: "index_group_users_on_seller_id"
+  end
+
   create_table "groups", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id", null: false
     t.index ["organization_id"], name: "index_groups_on_organization_id"
+    t.index ["seller_id"], name: "index_groups_on_seller_id"
+  end
+
+  create_table "organization_users", force: :cascade do |t|
+    t.bigint "seller_id", null: false
+    t.bigint "organization_id", null: false
+    t.index ["organization_id"], name: "index_organization_users_on_organization_id"
+    t.index ["seller_id"], name: "index_organization_users_on_seller_id"
   end
 
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id", null: false
+    t.index ["seller_id"], name: "index_organizations_on_seller_id"
+  end
+
+  create_table "product_role_assignments", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "group_id", null: false
+    t.bigint "seller_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_product_role_assignments_on_group_id"
+    t.index ["organization_id"], name: "index_product_role_assignments_on_organization_id"
+    t.index ["seller_id"], name: "index_product_role_assignments_on_seller_id"
+  end
+
+  create_table "product_roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "product_role_assignment_id", null: false
+    t.bigint "product_id", null: false
+    t.index ["product_id"], name: "index_product_roles_on_product_id"
+    t.index ["product_role_assignment_id"], name: "index_product_roles_on_product_role_assignment_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -92,7 +131,18 @@ ActiveRecord::Schema.define(version: 2020_07_09_062845) do
   add_foreign_key "bids", "buyers"
   add_foreign_key "bids", "user_auctions"
   add_foreign_key "buyers", "accounts"
+  add_foreign_key "group_users", "groups"
+  add_foreign_key "group_users", "sellers"
   add_foreign_key "groups", "organizations"
+  add_foreign_key "groups", "sellers"
+  add_foreign_key "organization_users", "organizations"
+  add_foreign_key "organization_users", "sellers"
+  add_foreign_key "organizations", "sellers"
+  add_foreign_key "product_role_assignments", "groups"
+  add_foreign_key "product_role_assignments", "organizations"
+  add_foreign_key "product_role_assignments", "sellers"
+  add_foreign_key "product_roles", "product_role_assignments"
+  add_foreign_key "product_roles", "products"
   add_foreign_key "products", "groups"
   add_foreign_key "products", "sellers"
   add_foreign_key "sellers", "accounts"
