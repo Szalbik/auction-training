@@ -6,4 +6,5 @@ class Account < ApplicationRecord
 
   has_one :buyer
   has_one :seller
+  has_one :admin_user
 end
